@@ -84,7 +84,7 @@ function calcularMedia(notas) {
       event.preventDefault();
   
       if (this.value == "") {
-        document.querySelector('.mensagem').innerHTML = "verifique o preenchimento dos campos em vermelho";
+        document.querySelector('.mensagem').innerHTML = "verifique o preenchimento do campo nome";
         this.classList.add('erro');
         this.parentNode.classList.add('erro');
         return false;
@@ -134,7 +134,7 @@ function calcularMedia(notas) {
         this.classList.remove('erro');
         this.parentNode.classList.remove('erro');
       } else {
-        document.querySelector('.mensagem').innerHTML = "verifique o preenchimento dos campos em destaque";
+        document.querySelector('.mensagem').innerHTML = "verifique o preenchimento do campo de e-mail";
         this.classList.add('erro');
         this.parentNode.classList.add('erro');
         return false;
@@ -143,12 +143,42 @@ function calcularMedia(notas) {
     });
   
   }
+
+  function validaUf(elemento){
+    elemento.addEventListener('focusout', function(event) {
+  
+        event.preventDefault();
+     
+        const ufValido = /^[a-z]{2}}$/i;
+      
+        if(this.value.match(ufValido)) {  
+            document.querySelector('.mensagem').innerHTML = "";  
+            this.classList.remove('erro');  
+            this.parentNode.classList.remove('erro');  
+        } else {
+            document.querySelector('.mensagem').innerHTML = "verifique o preenchimento do campo de UF";  
+            this.classList.add('erro');
+  
+            this.parentNode.classList.add('erro');
+  
+            return false;
+  
+        }
+  
+    });
+  
+  }
+  
+  
   
   
   let camposObrigatorios = document.querySelectorAll('input.obrigatorio');
   let camposNumericos = document.querySelectorAll('input.numero');
   let camposEmail = document.querySelectorAll('input.email');
-  
+  let camposUf = document.querySelectorAll('input.uf');
+
+
+
   for (let emFoco of camposObrigatorios) {
     validaCampo(emFoco);
   }
@@ -159,5 +189,11 @@ function calcularMedia(notas) {
   
   for (let emFoco of camposEmail) {
     validaEmail(emFoco);
+  }
+
+  for( let emFoco of camposUf) {
+
+    validaUf(emFoco);
+  
   }
   
